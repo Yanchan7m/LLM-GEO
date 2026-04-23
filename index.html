@@ -965,6 +965,13 @@ section {
   font-weight: 600;
   font-size: 14px;
   font-family: 'Inter Tight', sans-serif;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .testi-name {
   font-size: 14px;
@@ -1821,10 +1828,10 @@ section {
       <div class="testi-card reveal">
         <blockquote data-i18n="testi1.q">"Au bout de 3 semaines, ChatGPT a commencé à citer notre boutique quand on lui demandait des conseils thé. On a doublé le CA en 2 mois."</blockquote>
         <div class="testi-author">
-          <div class="avatar">CR</div>
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Clémence R." loading="lazy"></div>
           <div>
-            <div class="testi-name">Clémence Roux</div>
-            <div class="testi-role" data-i18n="testi1.role">Fondatrice, Maison Roux</div>
+            <div class="testi-name">Clémence R.</div>
+            <div class="testi-role" data-i18n="testi1.role">Fondatrice, e-commerce thé</div>
           </div>
         </div>
       </div>
@@ -1832,10 +1839,10 @@ section {
       <div class="testi-card reveal">
         <blockquote data-i18n="testi2.q">"On payait 4K/mois une agence SEO qui ne comprenait pas le GEO. Voxa fait les deux pour 10× moins. On a coupé l'agence."</blockquote>
         <div class="testi-author">
-          <div class="avatar">TB</div>
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Thomas B." loading="lazy"></div>
           <div>
-            <div class="testi-name">Thomas Béranger</div>
-            <div class="testi-role" data-i18n="testi2.role">CMO, Finovo</div>
+            <div class="testi-name">Thomas B.</div>
+            <div class="testi-role" data-i18n="testi2.role">CMO, SaaS B2B</div>
           </div>
         </div>
       </div>
@@ -1845,8 +1852,41 @@ section {
         <div class="testi-author">
           <div class="avatar">ML</div>
           <div>
-            <div class="testi-name">Mehdi Lebrun</div>
-            <div class="testi-role" data-i18n="testi3.role">Indie Hacker</div>
+            <div class="testi-name">Mehdi L.</div>
+            <div class="testi-role" data-i18n="testi3.role">Indie hacker</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <blockquote data-i18n="testi4.q">"Première citation Perplexity au bout de 5 semaines, sur une requête où on n'aurait jamais pu trust un SEO classique. Le ROI est mesurable, c'est rare dans le contenu."</blockquote>
+        <div class="testi-author">
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Sarah V." loading="lazy"></div>
+          <div>
+            <div class="testi-name">Sarah V.</div>
+            <div class="testi-role" data-i18n="testi4.role">Head of Growth, marketplace beauté</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <blockquote data-i18n="testi5.q">"Je validais 5 sujets par semaine en 10 minutes depuis le dashboard. Aujourd'hui je laisse l'autopilote tourner et je check les citations IA une fois par mois."</blockquote>
+        <div class="testi-author">
+          <div class="avatar">AM</div>
+          <div>
+            <div class="testi-name">Antoine M.</div>
+            <div class="testi-role" data-i18n="testi5.role">CEO, agence d'architecture</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <blockquote data-i18n="testi6.q">"Le différenciateur c'est la qualité éditoriale. Les articles ne sentent pas l'IA générique, ils sont structurés comme des papiers de fond avec data et sources."</blockquote>
+        <div class="testi-author">
+          <div class="avatar"><img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Léa C." loading="lazy"></div>
+          <div>
+            <div class="testi-name">Léa C.</div>
+            <div class="testi-role" data-i18n="testi6.role">Marketing Lead, app fitness</div>
           </div>
         </div>
       </div>
@@ -2109,11 +2149,17 @@ section {
     'testi.label': 'Testimonials',
     'testi.h2': 'They\'re already ranking in AI.',
     'testi1.q': '"After 3 weeks, ChatGPT started citing our shop whenever people asked for tea tips. We doubled revenue in 2 months."',
-    'testi1.role': 'Founder, Maison Roux',
+    'testi1.role': 'Founder, tea e-commerce',
     'testi2.q': '"We were paying 4K/mo for an SEO agency that didn\'t get GEO. Voxa does both for 10× less. We cut the agency."',
-    'testi2.role': 'CMO, Finovo',
+    'testi2.role': 'CMO, B2B SaaS',
     'testi3.q': '"I\'m a solo founder. Voxa publishes an article a day while I code. First qualified lead from Perplexity after 17 days."',
-    'testi3.role': 'Indie Hacker',
+    'testi3.role': 'Indie hacker',
+    'testi4.q': '"First Perplexity citation after 5 weeks, on a query where classic SEO would never have ranked us. ROI is measurable, which is rare in content."',
+    'testi4.role': 'Head of Growth, beauty marketplace',
+    'testi5.q': '"I used to approve 5 topics a week in 10 minutes from the dashboard. Now I let autopilot run and check AI citations once a month."',
+    'testi5.role': 'CEO, architecture firm',
+    'testi6.q': '"The differentiator is editorial quality. The articles don\'t feel like generic AI, they\'re structured like in-depth pieces with data and sources."',
+    'testi6.role': 'Marketing Lead, fitness app',
 
     'faq.label': 'FAQ',
     'faq.h2': 'The recurring questions.',
