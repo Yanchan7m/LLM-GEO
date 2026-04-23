@@ -1098,6 +1098,32 @@ section {
   color: var(--ink-soft);
 }
 
+/* ===== HERO VIDEO ===== */
+.hero-video-section {
+  padding: 40px 0 90px;
+  background: var(--white);
+}
+.hero-video {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow-md);
+  background: var(--off-white);
+  line-height: 0;
+}
+.hero-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+@media (max-width: 768px) {
+  .hero-video-section { padding: 24px 0 70px; }
+  .hero-video { border-radius: var(--radius-md); }
+}
+
 /* ===== LANG FAB ===== */
 .lang-fab {
   position: fixed;
@@ -1282,11 +1308,27 @@ section {
       <span>Perplexity</span>
       <span>Claude</span>
       <span>Gemini</span>
+      <span>Copilot</span>
+      <span>Meta AI</span>
+      <span>Grok</span>
+      <span>Le Chat</span>
+      <span>DeepSeek</span>
       <span>Google</span>
       <span>Bing</span>
     </div>
   </div>
 </div>
+
+<!-- ============================================================
+     HERO VIDEO
+     ============================================================ -->
+<section class="hero-video-section">
+  <div class="container">
+    <div class="hero-video reveal">
+      <video src="assets/voxa-hero.mp4" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+  </div>
+</section>
 
 <!-- ============================================================
      PROBLEME
