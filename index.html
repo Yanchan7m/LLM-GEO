@@ -177,7 +177,7 @@ section {
   font-size: 19px;
   letter-spacing: -0.03em;
 }
-.nav-logo svg { width: 28px; height: 28px; }
+.nav-logo svg { width: auto; height: 30px; }
 .nav-links {
   display: flex;
   gap: 32px;
@@ -276,14 +276,6 @@ section {
 @keyframes bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
-}
-.mascot .arm-wave {
-  transform-origin: 88px 200px;
-  animation: wave 2.4s ease-in-out infinite;
-}
-@keyframes wave {
-  0%, 100% { transform: rotate(-5deg); }
-  50% { transform: rotate(20deg); }
 }
 
 /* Bubbles */
@@ -1066,7 +1058,7 @@ section {
   font-size: 18px;
   letter-spacing: -0.03em;
 }
-.footer-logo svg { width: 26px; height: 26px; }
+.footer-logo svg { width: auto; height: 28px; }
 .footer-tagline {
   font-size: 14px;
   color: var(--ink-soft);
@@ -1161,13 +1153,13 @@ section {
 <nav class="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo" aria-label="Voxa accueil">
-      <svg viewBox="0 0 100 100" fill="none">
-        <rect x="20" y="30" width="60" height="50" rx="14" fill="#2563EB" stroke="#0A0A0A" stroke-width="3"/>
-        <rect x="30" y="42" width="40" height="26" rx="6" fill="#0A0A0A"/>
-        <circle cx="42" cy="55" r="3.5" fill="#FFFFFF"/>
-        <circle cx="58" cy="55" r="3.5" fill="#FFFFFF"/>
-        <line x1="50" y1="22" x2="50" y2="30" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="50" cy="18" r="4" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2"/>
+      <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="20" r="10" fill="none" stroke="#2563EB" stroke-width="7"/>
+        <path d="M 96 30 L 104 30 L 112 55 L 88 55 Z" fill="#2563EB"/>
+        <circle cx="100" cy="140" r="85" fill="none" stroke="#2563EB" stroke-width="13"/>
+        <circle cx="73" cy="135" r="11" fill="#2563EB"/>
+        <circle cx="127" cy="135" r="11" fill="#2563EB"/>
+        <ellipse cx="100" cy="177" rx="19" ry="7" fill="#2563EB"/>
       </svg>
       Voxa
     </a>
@@ -1200,42 +1192,17 @@ section {
 
       <div class="mascot-wrap reveal">
         <!-- Mascotte Voxa -->
-        <svg class="mascot" width="320" height="360" viewBox="0 0 320 360" fill="none" aria-label="Mascotte Voxa">
-          <!-- Antenne + étoile -->
-          <line x1="160" y1="50" x2="160" y2="78" stroke="#0A0A0A" stroke-width="3" stroke-linecap="round"/>
-          <path d="M160 30 L165 44 L179 44 L168 53 L172 67 L160 59 L148 67 L152 53 L141 44 L155 44 Z" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2.5" stroke-linejoin="round"/>
-
-          <!-- Corps -->
-          <rect x="60" y="80" width="200" height="170" rx="38" fill="#2563EB" stroke="#0A0A0A" stroke-width="3"/>
-
-          <!-- Joues -->
-          <circle cx="80" cy="178" r="10" fill="#BFDBFE"/>
-          <circle cx="240" cy="178" r="10" fill="#BFDBFE"/>
-
-          <!-- Écran visage -->
-          <rect x="92" y="108" width="136" height="98" rx="22" fill="#0A0A0A"/>
-
+        <svg class="mascot" width="300" height="360" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mascotte Voxa">
+          <!-- Antenne -->
+          <circle cx="100" cy="20" r="10" fill="none" stroke="#2563EB" stroke-width="7"/>
+          <path d="M 96 30 L 104 30 L 112 55 L 88 55 Z" fill="#2563EB"/>
+          <!-- Tête -->
+          <circle cx="100" cy="140" r="85" fill="none" stroke="#2563EB" stroke-width="13"/>
           <!-- Yeux -->
-          <circle cx="128" cy="150" r="11" fill="#FFFFFF"/>
-          <circle cx="192" cy="150" r="11" fill="#FFFFFF"/>
-          <circle cx="131" cy="148" r="3" fill="#0A0A0A"/>
-          <circle cx="195" cy="148" r="3" fill="#0A0A0A"/>
-
-          <!-- Sourire -->
-          <path d="M138 178 Q160 192 182 178" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-
-          <!-- Bras gauche (statique) -->
-          <rect x="32" y="150" width="34" height="62" rx="17" fill="#2563EB" stroke="#0A0A0A" stroke-width="3"/>
-
-          <!-- Bras droit (qui fait coucou) -->
-          <g class="arm-wave">
-            <rect x="254" y="120" width="34" height="80" rx="17" fill="#2563EB" stroke="#0A0A0A" stroke-width="3"/>
-            <circle cx="271" cy="118" r="14" fill="#2563EB" stroke="#0A0A0A" stroke-width="3"/>
-          </g>
-
-          <!-- Pieds -->
-          <ellipse cx="115" cy="270" rx="32" ry="14" fill="#0A0A0A"/>
-          <ellipse cx="205" cy="270" rx="32" ry="14" fill="#0A0A0A"/>
+          <circle cx="73" cy="135" r="11" fill="#2563EB"/>
+          <circle cx="127" cy="135" r="11" fill="#2563EB"/>
+          <!-- Bouche -->
+          <ellipse cx="100" cy="177" rx="19" ry="7" fill="#2563EB"/>
         </svg>
 
         <!-- Bubbles flottantes -->
@@ -1788,13 +1755,13 @@ section {
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-logo">
-          <svg viewBox="0 0 100 100" fill="none">
-            <rect x="20" y="30" width="60" height="50" rx="14" fill="#2563EB" stroke="#0A0A0A" stroke-width="3"/>
-            <rect x="30" y="42" width="40" height="26" rx="6" fill="#0A0A0A"/>
-            <circle cx="42" cy="55" r="3.5" fill="#FFFFFF"/>
-            <circle cx="58" cy="55" r="3.5" fill="#FFFFFF"/>
-            <line x1="50" y1="22" x2="50" y2="30" stroke="#0A0A0A" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="50" cy="18" r="4" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2"/>
+          <svg viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="20" r="10" fill="none" stroke="#2563EB" stroke-width="7"/>
+            <path d="M 96 30 L 104 30 L 112 55 L 88 55 Z" fill="#2563EB"/>
+            <circle cx="100" cy="140" r="85" fill="none" stroke="#2563EB" stroke-width="13"/>
+            <circle cx="73" cy="135" r="11" fill="#2563EB"/>
+            <circle cx="127" cy="135" r="11" fill="#2563EB"/>
+            <ellipse cx="100" cy="177" rx="19" ry="7" fill="#2563EB"/>
           </svg>
           Voxa
         </div>
