@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voxa — Sois la marque que l'IA recommande</title>
+<meta name="description" content="Voxa rend ta marque visible dans ChatGPT, Perplexity, Claude et Gemini. SEO + GEO automatisés.">
+
+<!-- Favicon (logo Voxa épaissi pour petite taille) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 240'><circle cx='100' cy='20' r='10' fill='none' stroke='%232563EB' stroke-width='17.5'/><path d='M 96 30 L 104 30 L 112 55 L 88 55 Z' fill='%232563EB'/><circle cx='100' cy='140' r='85' fill='none' stroke='%232563EB' stroke-width='32.5'/><circle cx='73' cy='135' r='14' fill='%232563EB'/><circle cx='127' cy='135' r='14' fill='%232563EB'/><ellipse cx='100' cy='177' rx='19' ry='7' fill='%232563EB'/></svg>">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   VARIABLES + RESET
+   ============================================ */
+:root {
+  --white:      #FFFFFF;
+  --off-white:  #FAFAFA;
+  --ink:        #0A0A0A;
+  --ink-soft:   #525252;
+  --stroke:     #E5E5E5;
+  --blue:       #2563EB;
+  --blue-dark:  #1D4ED8;
+  --blue-soft:  #EFF4FF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img, svg { display: block; max-width: 100%; }
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+section { padding: 120px 0; }
+
+@media (max-width: 768px) {
+  section { padding: 80px 0; }
+  .container { padding: 0 20px; }
+}
+
+/* ============================================
+   ANIMATIONS GLOBALES
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  95%, 98% { transform: scaleY(0.1); }
+}
+
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================
+   NAV
+   ============================================ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--stroke);
+}
+.nav-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+.nav-brand svg { width: 32px; height: auto; }
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 22px;
+  font-weight: 500;
+  font-size: 14px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+.btn-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+.btn-dark:hover { background: #222; transform: translateY(-1px); }
+
+.btn-blue {
+  background: var(--blue);
+  color: var(--white);
+  padding: 16px 28px;
+  font-size: 15px;
+}
+.btn-blue:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--stroke);
+  padding: 16px 28px;
+  font-size: 15px;
+}
+.btn-ghost:hover { border-color: var(--ink); }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-inner { padding: 14px 20px; gap: 12px; }
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  padding: 80px 0 120px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+.eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.hero h1 .underline {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+.hero h1 .underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  height: 8px;
+  background: var(--blue);
+  z-index: -1;
+}
+
+.hero-sub {
+  font-size: 20px;
+  color: var(--ink-soft);
+  max-width: 540px;
+  margin-bottom: 32px;
+  line-height: 1.55;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.hero-micro {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+.hero-micro .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Mascotte */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 520px;
+}
+.mascot {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  display: block;
+}
+.float { animation: float 4s ease-in-out infinite; transform-origin: center; }
+.blink {
+  animation: blink 5s infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.bubble {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  padding: 10px 18px 10px 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  animation: floatBubble 4s ease-in-out infinite;
+}
+.bubble .avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+}
+.bubble-1 { top: 8%; left: -5%; animation-delay: 0s; }
+.bubble-1 .avatar { background: #10a37f; }
+.bubble-2 { top: 42%; right: -8%; animation-delay: 1s; }
+.bubble-2 .avatar { background: #0F766E; }
+.bubble-3 { bottom: 12%; left: -2%; animation-delay: 2s; }
+.bubble-3 .avatar { background: #D97757; }
+
+@media (max-width: 960px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { min-height: 460px; }
+  .bubble-1 { left: 0; }
+  .bubble-2 { right: 0; }
+}
+@media (max-width: 480px) {
+  .bubble { font-size: 12px; padding: 8px 14px 8px 8px; }
+  .bubble .avatar { width: 22px; height: 22px; font-size: 11px; }
+}
+
+/* ============================================
+   AI LOGOS BAR
+   ============================================ */
+.ai-bar {
+  padding: 60px 0;
+  border-top: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+}
+.ai-bar .label {
+  text-align: center;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+.ai-bar .list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 32px;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--ink);
+  opacity: 0.6;
+}
+.ai-bar .sep {
+  color: var(--ink-soft);
+}
+@media (max-width: 768px) {
+  .ai-bar .list { font-size: 18px; gap: 20px; }
+}
+
+/* ============================================
+   PROBLÈME
+   ============================================ */
+.problem { background: var(--off-white); }
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 20px;
+  display: block;
+}
+
+h2 {
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+}
+
+.section-sub {
+  font-size: 19px;
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin-bottom: 64px;
+  line-height: 1.55;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--stroke);
+  margin-bottom: 60px;
+}
+.stat {
+  padding: 48px 32px 0 0;
+}
+.stat:not(:last-child) { border-right: 1px solid var(--stroke); padding-right: 32px; }
+.stat:not(:first-child) { padding-left: 32px; }
+.stat .num {
+  font-size: 88px;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.stat .desc {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.quote-card {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 760px;
+}
+.quote-card p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+.quote-card .author {
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat { padding: 32px 0; border-right: none !important; border-bottom: 1px solid var(--stroke); padding-left: 0 !important; }
+  .stat:last-child { border-bottom: none; }
+  .stat .num { font-size: 68px; }
+}
+
+/* ============================================
+   3 ÉTAPES
+   ============================================ */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.step-card {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+.step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+}
+.step-card .num {
+  font-size: 72px;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.step-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.step-card p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+.step-visual {
+  background: var(--off-white);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+@media (max-width: 768px) {
+  .steps-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   FEATURES
+   ============================================ */
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 24px;
+  padding: 36px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.feature-card:hover {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+}
+.feature-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+}
+.feature-card p {
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+.feature-card.highlight {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+.feature-card.highlight p { color: rgba(255,255,255,0.85); }
+.feature-card .badge-new {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.kw-list {
+  background: var(--off-white);
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 2;
+}
+.kw-list .kw-line {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--stroke);
+  padding: 6px 0;
+}
+.kw-list .kw-line:last-child { border-bottom: none; }
+.kw-list .ok { color: var(--blue); }
+
+.voice-card {
+  background: var(--off-white);
+  border-radius: 12px;
+  padding: 20px;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink);
+  border-left: 3px solid var(--blue);
+}
+
+.dashboard-card {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 16px;
+}
+.dashboard-card .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 4px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--white);
+}
+.dashboard-card .row:last-child { border-bottom: none; }
+.dashboard-card .row .arrow { color: #93C5FD; font-weight: 700; }
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--off-white);
+  border-radius: 12px;
+  padding: 20px;
+}
+.status-list .status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+}
+.status-list .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+@media (max-width: 768px) {
+  .features-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   GEO EXPLAINER
+   ============================================ */
+.geo {
+  background: var(--off-white);
+  border-radius: 40px;
+  margin: 80px 16px;
+  padding: 100px 60px;
+}
+.geo-grid {
+  display: grid;
+  grid-template-columns: 40fr 60fr;
+  gap: 60px;
+  align-items: center;
+}
+.geo-def {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 24px 0;
+}
+.geo-def .tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.geo-text {
+  font-size: 16px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.chat-mock {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+}
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--stroke);
+  margin-bottom: 20px;
+}
+.chat-header .ai-avatar {
+  width: 28px;
+  height: 28px;
+  background: var(--ink);
+  color: var(--white);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+.chat-header .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.chat-q {
+  background: var(--off-white);
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 15px;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+.chat-a {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.chat-a ol {
+  margin-top: 10px;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.highlight-mark {
+  background: var(--blue-soft);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.via-tag {
+  display: inline-block;
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+@media (max-width: 960px) {
+  .geo { padding: 60px 24px; margin: 40px 16px; }
+  .geo-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ============================================
+   CAROUSEL
+   ============================================ */
+.rankings {
+  overflow: hidden;
+  position: relative;
+}
+.rankings-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.rankings-header .section-label,
+.rankings-header h2 {
+  text-align: center;
+}
+.rankings-header h2 { margin-left: auto; margin-right: auto; }
+
+.carousel-wrap {
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+.rank-card {
+  flex-shrink: 0;
+  width: 340px;
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 20px;
+}
+.rank-card .head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.rank-card .favicon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.rank-card .url {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.rank-card .badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.rank-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.rank-card .desc {
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* ============================================
+   INTÉGRATIONS
+   ============================================ */
+.integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.int-card {
+  aspect-ratio: 1;
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.2s;
+}
+.int-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-2px);
+}
+.int-card .initial {
+  width: 40px;
+  height: 40px;
+  background: var(--blue-soft);
+  color: var(--blue-dark);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+.int-card .name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .integrations-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 480px) {
+  .integrations-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ============================================
+   COMPARAISON
+   ============================================ */
+.compare-table {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 48px;
+}
+.compare-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--stroke);
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-row > div {
+  padding: 18px 24px;
+  font-size: 15px;
+}
+.compare-row.head > div {
+  background: var(--blue-soft);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue-dark);
+  font-weight: 500;
+}
+.compare-row .check {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 18px;
+}
+.compare-row .dash {
+  color: #999;
+  font-size: 18px;
+}
+.compare-row .label-col {
+  font-weight: 500;
+}
+.compare-row .price {
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  .compare-row { grid-template-columns: 1.5fr 1fr 1fr 1fr; }
+  .compare-row > div { padding: 14px 12px; font-size: 13px; }
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.testi-card {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+.testi-card p {
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 24px;
+  flex: 1;
+  color: var(--ink);
+}
+.testi-card .person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.testi-card .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563EB, #93C5FD);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+.testi-card .info {
+  font-size: 14px;
+}
+.testi-card .info .name {
+  font-weight: 700;
+  color: var(--ink);
+}
+.testi-card .info .role {
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+@media (max-width: 768px) {
+  .testimonials-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   FAQ
+   ============================================ */
+.faq-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.faq-list {
+  border-top: 1px solid var(--stroke);
+  margin-top: 48px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--stroke);
+  cursor: pointer;
+}
+.faq-q {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  gap: 24px;
+}
+.faq-toggle {
+  color: var(--blue);
+  font-size: 26px;
+  font-weight: 400;
+  transition: transform 0.3s ease;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.faq-item.open .faq-toggle {
+  transform: rotate(45deg);
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.faq-item.open .faq-a {
+  max-height: 400px;
+}
+.faq-a-inner {
+  padding: 0 0 24px 0;
+  max-width: 720px;
+}
+@media (max-width: 768px) {
+  .faq-q { font-size: 18px; padding: 20px 0; }
+}
+
+/* ============================================
+   CTA FINAL
+   ============================================ */
+.cta-final {
+  background: var(--blue);
+  color: var(--white);
+  border-radius: 40px;
+  margin: 80px 16px;
+  padding: 100px 40px;
+  text-align: center;
+}
+.cta-final h2 {
+  color: var(--white);
+  max-width: 900px;
+  margin: 0 auto 20px;
+}
+.cta-final .sub {
+  font-size: 19px;
+  color: rgba(255,255,255,0.95);
+  max-width: 640px;
+  margin: 0 auto 36px;
+  line-height: 1.55;
+}
+.cta-final .btn-dark {
+  padding: 16px 32px;
+  font-size: 16px;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  border-top: 1px solid var(--stroke);
+  padding: 80px 0 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+.footer-brand .brand-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.footer-brand .brand-line svg { width: 32px; height: auto; }
+.footer-brand .tagline {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink-soft);
+  max-width: 320px;
+  line-height: 1.4;
+}
+.footer-col h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-col a {
+  font-size: 14px;
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--blue); }
+
+.footer-bottom {
+  border-top: 1px solid var(--stroke);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================ NAV ============================================ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="20" r="10" fill="none" stroke="#2563EB" stroke-width="7"/>
+        <path d="M 96 30 L 104 30 L 112 55 L 88 55 Z" fill="#2563EB"/>
+        <circle cx="100" cy="140" r="85" fill="none" stroke="#2563EB" stroke-width="13"/>
+        <circle cx="73" cy="135" r="11" fill="#2563EB"/>
+        <circle cx="127" cy="135" r="11" fill="#2563EB"/>
+        <ellipse cx="100" cy="177" rx="19" ry="7" fill="#2563EB"/>
+      </svg>
+      Voxa
+    </a>
+    <div class="nav-links">
+      <a href="#problem">Pourquoi</a>
+      <a href="#features">Fonctions</a>
+      <a href="#geo">LLM GEO</a>
+      <a href="#pricing">Tarifs</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#" class="btn btn-dark">Commencer →</a>
+  </div>
+</nav>
+
+<!-- ============================================ HERO ============================================ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="eyebrow">
+          <span class="dot"></span>
+          <span>Nouveau : LLM GEO inclus</span>
+        </div>
+        <h1>Tes clients ne googlent plus. Ils demandent à <span class="underline">l'IA</span>.</h1>
+        <p class="hero-sub">Voxa rend ta marque visible dans ChatGPT, Perplexity, Claude et Gemini — là où la Gen Z choisit vraiment quoi acheter. Plus Google en bonus.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn btn-blue">Essayer Voxa gratuitement</a>
+          <a href="#geo" class="btn btn-ghost">C'est quoi le GEO ?</a>
+        </div>
+        <div class="hero-micro">
+          <span class="dot"></span>
+          <span>Setup en 3 minutes · Sans carte bancaire · Annulable à tout moment</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <!-- Mascotte complète -->
+        <svg class="mascot" viewBox="0 0 280 480" xmlns="http://www.w3.org/2000/svg">
+          <g class="float">
+            <!-- Antenne -->
+            <circle cx="140" cy="20" r="10" fill="none" stroke="#2563EB" stroke-width="7"/>
+            <path d="M 136 30 L 144 30 L 152 55 L 128 55 Z" fill="#2563EB"/>
+            <!-- Tête -->
+            <circle cx="140" cy="140" r="85" fill="none" stroke="#2563EB" stroke-width="13"/>
+            <circle class="blink" cx="113" cy="135" r="11" fill="#2563EB"/>
+            <circle class="blink" cx="167" cy="135" r="11" fill="#2563EB"/>
+            <ellipse cx="140" cy="177" rx="19" ry="7" fill="#2563EB"/>
+            <!-- Corps ovale vertical -->
+            <ellipse cx="140" cy="350" rx="58" ry="110" fill="none" stroke="#2563EB" stroke-width="13"/>
+            <!-- Bras stick inclinés -->
+            <ellipse cx="68" cy="335" rx="13" ry="80" fill="none" stroke="#2563EB" stroke-width="13" transform="rotate(20 68 335)"/>
+            <ellipse cx="212" cy="335" rx="13" ry="80" fill="none" stroke="#2563EB" stroke-width="13" transform="rotate(-20 212 335)"/>
+          </g>
+        </svg>
+        <div class="bubble bubble-1"><span class="avatar">G</span>ChatGPT te cite</div>
+        <div class="bubble bubble-2"><span class="avatar">P</span>Perplexity : top source</div>
+        <div class="bubble bubble-3"><span class="avatar">C</span>Claude te recommande</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ AI BAR ============================================ -->
+<section class="ai-bar">
+  <div class="container">
+    <div class="label mono">Optimisé pour</div>
+    <div class="list">
+      <span>ChatGPT</span><span class="sep">·</span>
+      <span>Perplexity</span><span class="sep">·</span>
+      <span>Claude</span><span class="sep">·</span>
+      <span>Gemini</span><span class="sep">·</span>
+      <span>Google</span><span class="sep">·</span>
+      <span>Bing</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ PROBLÈME ============================================ -->
+<section class="problem" id="problem">
+  <div class="container">
+    <span class="section-label reveal">Le vrai problème</span>
+    <h2 class="reveal">La Gen Z n'achète plus comme avant.</h2>
+    <p class="section-sub reveal">Avant : Google → clic → ton site. Aujourd'hui : ChatGPT → "quelle marque recommandes-tu ?" → 3 suggestions. Si tu n'es pas dans les 3, tu n'existes pas.</p>
+
+    <div class="stats-grid reveal">
+      <div class="stat">
+        <div class="num">72%</div>
+        <div class="desc">des 18-27 ans consultent un LLM avant un achat important.</div>
+      </div>
+      <div class="stat">
+        <div class="num">3×</div>
+        <div class="desc">plus de conversions sur un lead venu d'une recommandation IA vs pub Meta.</div>
+      </div>
+      <div class="stat">
+        <div class="num">0</div>
+        <div class="desc">outil SEO classique ne te dit si ChatGPT parle de ta marque.</div>
+      </div>
+    </div>
+
+    <div class="quote-card reveal">
+      <p>"J'ai demandé à ChatGPT quelles baskets durables acheter. Il m'en a donné 3. J'ai pris la première. J'ai même pas regardé Google."</p>
+      <div class="author">— Louna, 22 ans, étudiante à Lyon</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ 3 ÉTAPES ============================================ -->
+<section>
+  <div class="container">
+    <span class="section-label reveal">Démarrer</span>
+    <h2 class="reveal">3 étapes. Et Voxa fait le reste.</h2>
+    <p class="section-sub reveal">Pas de compétences SEO. Pas de prompts. Pas d'agence à 5000 €/mois.</p>
+
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="num">01</div>
+        <h3>Colle ton URL</h3>
+        <p>Voxa apprend ton site, ta voix, ton marché et tes concurrents en 90 secondes.</p>
+        <div class="step-visual">
+          <svg width="240" height="44" viewBox="0 0 240 44">
+            <rect x="1" y="1" width="180" height="42" rx="10" fill="white" stroke="#E5E5E5"/>
+            <text x="14" y="27" font-family="JetBrains Mono" font-size="12" fill="#525252">https://tamarque.com</text>
+            <rect x="190" y="1" width="48" height="42" rx="10" fill="#2563EB"/>
+            <text x="214" y="28" font-family="Inter" font-size="14" font-weight="700" fill="white" text-anchor="middle">→</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="step-card reveal">
+        <div class="num">02</div>
+        <h3>Reçois des articles</h3>
+        <p>On te livre chaque jour un contenu optimisé pour Google ET les LLM. Tu valides en un clic.</p>
+        <div class="step-visual">
+          <svg width="240" height="80" viewBox="0 0 240 80">
+            <rect x="0" y="0" width="240" height="20" rx="6" fill="#EFF4FF"/>
+            <rect x="0" y="0" width="180" height="20" rx="6" fill="#2563EB"/>
+            <rect x="0" y="30" width="240" height="20" rx="6" fill="#EFF4FF"/>
+            <rect x="0" y="30" width="140" height="20" rx="6" fill="#2563EB"/>
+            <rect x="0" y="60" width="240" height="20" rx="6" fill="#EFF4FF"/>
+            <rect x="0" y="60" width="200" height="20" rx="6" fill="#2563EB"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="step-card reveal">
+        <div class="num">03</div>
+        <h3>Remonte partout</h3>
+        <p>Sur Google, dans les réponses ChatGPT, dans les résumés Perplexity. Trafic & ventes qui grimpent.</p>
+        <div class="step-visual">
+          <svg width="240" height="80" viewBox="0 0 240 80">
+            <polyline points="10,70 60,55 110,40 160,25 210,8" fill="none" stroke="#2563EB" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="210" cy="8" r="4" fill="#2563EB"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ FEATURES ============================================ -->
+<section id="features">
+  <div class="container">
+    <span class="section-label reveal">100 % autopilote</span>
+    <h2 class="reveal">SEO + GEO. Le duo gagnant.</h2>
+
+    <div class="features-grid" style="margin-top: 48px;">
+      <div class="feature-card reveal">
+        <h3>Trouve les bons mots-clés</h3>
+        <p>Voxa repère les requêtes que tes clients tapent vraiment — Google et IA confondus.</p>
+        <div class="kw-list">
+          <div class="kw-line"><span><span class="ok">✓</span> meilleures baskets durables 2026</span><span>4.2k/mois</span></div>
+          <div class="kw-line"><span><span class="ok">✓</span> sneakers cuir vegan france</span><span>1.8k/mois</span></div>
+          <div class="kw-line"><span><span class="ok">✓</span> marques eco friendly chaussures</span><span>970/mois</span></div>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <h3>Apprend ta voix</h3>
+        <p>Ton ton, ton vocabulaire, tes valeurs. Voxa écrit comme toi, pas comme une IA générique.</p>
+        <div class="voice-card">
+          "Direct, chaleureux, légèrement rebelle. Phrases courtes, vocabulaire urbain, peu de jargon technique."
+        </div>
+      </div>
+
+      <div class="feature-card highlight reveal">
+        <span class="badge-new">NOUVEAU</span>
+        <h3>LLM GEO visibility</h3>
+        <p>On track chaque jour les mentions de ta marque dans ChatGPT, Claude, Perplexity et Gemini.</p>
+        <div class="dashboard-card">
+          <div class="row"><span>ChatGPT · 24 mentions</span><span class="arrow">↑ 18%</span></div>
+          <div class="row"><span>Perplexity · 12 mentions</span><span class="arrow">↑ 7%</span></div>
+          <div class="row"><span>Claude · 9 mentions</span><span class="arrow">↑ 22%</span></div>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <h3>Publie automatiquement</h3>
+        <p>Connecte ton CMS une fois. Voxa publie, indexe, et fait crawler les bots IA.</p>
+        <div class="status-list">
+          <div class="status"><span class="dot"></span>Article publié</div>
+          <div class="status"><span class="dot"></span>Indexé Google</div>
+          <div class="status"><span class="dot"></span>Crawlé par GPTBot</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ GEO EXPLAINER ============================================ -->
+<section class="geo" id="geo">
+  <div class="geo-grid">
+    <div class="reveal">
+      <span class="section-label">C'est quoi, le GEO ?</span>
+      <h2>Le SEO, mais pour les IA génératives.</h2>
+      <div class="geo-def">
+        <span class="tag">GEO — def.</span>
+        <strong>Generative Engine Optimization</strong> — Optimiser un contenu pour qu'il soit cité, résumé et recommandé par les moteurs de réponse IA (ChatGPT, Perplexity, Claude, Gemini…) plutôt que simplement listé dans une SERP Google.
+      </div>
+      <p class="geo-text">Le SEO classique optimise pour <em>être cliqué</em>. Le GEO optimise pour <em>être cité</em>. Concrètement, Voxa structure ton contenu en paragraphes denses, ajoute des FAQ sémantiques, insère des signaux de confiance que les LLMs adorent (données chiffrées, citations, sources), et s'assure que ton site est crawlable par GPTBot, ClaudeBot, PerplexityBot et les autres.</p>
+    </div>
+
+    <div class="chat-mock reveal">
+      <div class="chat-header">
+        <div class="ai-avatar">AI</div>
+        <div class="meta">CHATGPT · IL Y A 2 SEC</div>
+      </div>
+      <div class="chat-q">Quelles marques de baskets durables tu recommandes en France ?</div>
+      <div class="chat-a">
+        Pour des baskets durables en France, je recommanderais principalement trois marques :
+        <ol>
+          <li><strong>Veja</strong> — pionnière, matériaux recyclés.</li>
+          <li><span class="highlight-mark">TA MARQUE</span> <span class="via-tag">via Voxa</span> — fabrication locale, cuir végétal.</li>
+          <li><strong>Angarde</strong> — sneakers éco-conçues.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ RANKINGS ============================================ -->
+<section class="rankings">
+  <div class="container rankings-header">
+    <span class="section-label reveal">Résultats réels</span>
+    <h2 class="reveal">Google, ChatGPT, Perplexity. Partout à la fois.</h2>
+  </div>
+
+  <div class="carousel-wrap">
+    <div class="carousel-track">
+      <!-- Liste 1 -->
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#10a37f">M</div>
+          <div class="url">maisonroux.fr/blog/the-vert</div>
+        </div>
+        <div class="badge">🤖 IA Cité 12×</div>
+        <h4>Comment choisir un thé vert bio en 2026</h4>
+        <div class="desc">Cité par ChatGPT et Perplexity sur les requêtes "meilleur thé vert France".</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#2563EB">F</div>
+          <div class="url">finovo.io/guide-fintech</div>
+        </div>
+        <div class="badge">🔍 Google Top 3</div>
+        <h4>Les 7 meilleures néo-banques pour entrepreneurs</h4>
+        <div class="desc">Top 3 Google sur "meilleure banque pro indépendant".</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#D97757">N</div>
+          <div class="url">naya.fr/sneakers-vegan</div>
+        </div>
+        <div class="badge">🤖 IA Cité 24×</div>
+        <h4>Sneakers véganes : le vrai guide 2026</h4>
+        <div class="desc">Recommandé par Claude sur les questions de mode éthique.</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#0F766E">L</div>
+          <div class="url">lebrun.dev/saas-solo</div>
+        </div>
+        <div class="badge">🤖 IA Cité 8×</div>
+        <h4>Lancer un SaaS en solo — méthode complète</h4>
+        <div class="desc">Source citée par Perplexity sur les requêtes indie hacker.</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#DB4437">B</div>
+          <div class="url">bionature.fr/cosmetiques-clean</div>
+        </div>
+        <div class="badge">🔍 Google Top 1</div>
+        <h4>Cosmétiques clean : guide d'achat 2026</h4>
+        <div class="desc">Position 1 Google sur "cosmétiques sans perturbateurs".</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#7C3AED">A</div>
+          <div class="url">atelier44.com/menuiserie</div>
+        </div>
+        <div class="badge">🤖 IA Cité 17×</div>
+        <h4>Menuiserie sur-mesure : prix et délais réels</h4>
+        <div class="desc">Cité par Gemini sur les requêtes artisanat France.</div>
+      </div>
+
+      <!-- Duplication pour boucle infinie -->
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#10a37f">M</div>
+          <div class="url">maisonroux.fr/blog/the-vert</div>
+        </div>
+        <div class="badge">🤖 IA Cité 12×</div>
+        <h4>Comment choisir un thé vert bio en 2026</h4>
+        <div class="desc">Cité par ChatGPT et Perplexity sur les requêtes "meilleur thé vert France".</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#2563EB">F</div>
+          <div class="url">finovo.io/guide-fintech</div>
+        </div>
+        <div class="badge">🔍 Google Top 3</div>
+        <h4>Les 7 meilleures néo-banques pour entrepreneurs</h4>
+        <div class="desc">Top 3 Google sur "meilleure banque pro indépendant".</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#D97757">N</div>
+          <div class="url">naya.fr/sneakers-vegan</div>
+        </div>
+        <div class="badge">🤖 IA Cité 24×</div>
+        <h4>Sneakers véganes : le vrai guide 2026</h4>
+        <div class="desc">Recommandé par Claude sur les questions de mode éthique.</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#0F766E">L</div>
+          <div class="url">lebrun.dev/saas-solo</div>
+        </div>
+        <div class="badge">🤖 IA Cité 8×</div>
+        <h4>Lancer un SaaS en solo — méthode complète</h4>
+        <div class="desc">Source citée par Perplexity sur les requêtes indie hacker.</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#DB4437">B</div>
+          <div class="url">bionature.fr/cosmetiques-clean</div>
+        </div>
+        <div class="badge">🔍 Google Top 1</div>
+        <h4>Cosmétiques clean : guide d'achat 2026</h4>
+        <div class="desc">Position 1 Google sur "cosmétiques sans perturbateurs".</div>
+      </div>
+      <div class="rank-card">
+        <div class="head">
+          <div class="favicon" style="background:#7C3AED">A</div>
+          <div class="url">atelier44.com/menuiserie</div>
+        </div>
+        <div class="badge">🤖 IA Cité 17×</div>
+        <h4>Menuiserie sur-mesure : prix et délais réels</h4>
+        <div class="desc">Cité par Gemini sur les requêtes artisanat France.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ INTÉGRATIONS ============================================ -->
+<section>
+  <div class="container">
+    <span class="section-label reveal">Intégrations</span>
+    <h2 class="reveal">Ça marche avec ton site actuel.</h2>
+    <p class="section-sub reveal">Un plugin, un clic, on s'occupe du reste.</p>
+
+    <div class="integrations-grid">
+      <div class="int-card reveal"><div class="initial">W</div><div class="name">WordPress</div></div>
+      <div class="int-card reveal"><div class="initial">S</div><div class="name">Shopify</div></div>
+      <div class="int-card reveal"><div class="initial">W</div><div class="name">Webflow</div></div>
+      <div class="int-card reveal"><div class="initial">W</div><div class="name">Wix</div></div>
+      <div class="int-card reveal"><div class="initial">N</div><div class="name">Notion</div></div>
+      <div class="int-card reveal"><div class="initial">H</div><div class="name">HubSpot</div></div>
+      <div class="int-card reveal"><div class="initial">G</div><div class="name">Ghost</div></div>
+      <div class="int-card reveal"><div class="initial">N</div><div class="name">Next.js</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ COMPARAISON ============================================ -->
+<section id="pricing">
+  <div class="container">
+    <span class="section-label reveal">Comparer</span>
+    <h2 class="reveal">Pourquoi pas une agence à 5000 €/mois ?</h2>
+    <p class="section-sub reveal">Les agences ne font pas encore de GEO. Les outils DIY te donnent juste des mots-clés. Voxa fait tout.</p>
+
+    <div class="compare-table reveal">
+      <div class="compare-row head">
+        <div>Critère</div>
+        <div>Voxa</div>
+        <div>Agence</div>
+        <div>DIY</div>
+      </div>
+      <div class="compare-row">
+        <div class="label-col">Optimise pour ChatGPT & LLMs</div>
+        <div class="check">✓</div>
+        <div class="dash">—</div>
+        <div class="dash">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="label-col">Publication automatique quotidienne</div>
+        <div class="check">✓</div>
+        <div class="dash">—</div>
+        <div class="dash">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="label-col">Contenu dans ta voix de marque</div>
+        <div class="check">✓</div>
+        <div class="check">✓</div>
+        <div class="dash">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="label-col">Tracking des mentions IA</div>
+        <div class="check">✓</div>
+        <div class="dash">—</div>
+        <div class="dash">—</div>
+      </div>
+      <div class="compare-row">
+        <div class="label-col">Prix mensuel</div>
+        <div class="price">49 €</div>
+        <div>5 000 €+</div>
+        <div>∞ temps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ TESTIMONIALS ============================================ -->
+<section>
+  <div class="container">
+    <span class="section-label reveal">Témoignages</span>
+    <h2 class="reveal">Ils remontent déjà dans les IA.</h2>
+
+    <div class="testimonials-grid" style="margin-top: 48px;">
+      <div class="testi-card reveal">
+        <p>"Au bout de 3 semaines, ChatGPT a commencé à citer notre boutique quand on lui demandait des conseils thé. On a doublé le CA en 2 mois."</p>
+        <div class="person">
+          <div class="avatar">CR</div>
+          <div class="info">
+            <div class="name">Clémence Roux</div>
+            <div class="role">Fondatrice, Maison Roux</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <p>"On payait 4K/mois une agence SEO qui ne comprenait pas le GEO. Voxa fait les deux pour 10× moins. On a coupé l'agence."</p>
+        <div class="person">
+          <div class="avatar">TB</div>
+          <div class="info">
+            <div class="name">Thomas Béranger</div>
+            <div class="role">CMO, Finovo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <p>"Je suis solo founder. Voxa publie un article par jour pendant que je code. Premier lead qualifié venu de Perplexity au bout de 17 jours."</p>
+        <div class="person">
+          <div class="avatar">ML</div>
+          <div class="info">
+            <div class="name">Mehdi Lebrun</div>
+            <div class="role">Indie Hacker</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ FAQ ============================================ -->
+<section id="faq">
+  <div class="container faq-wrap">
+    <span class="section-label reveal" style="text-align:center;">FAQ</span>
+    <h2 class="reveal" style="text-align:center;">Les questions qui reviennent.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">C'est quoi, le GEO exactement ?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Le GEO (Generative Engine Optimization) est l'art d'optimiser un contenu pour qu'il soit cité et recommandé par les IA conversationnelles comme ChatGPT, Claude, Perplexity ou Gemini. C'est le SEO adapté à l'ère où les gens ne cliquent plus sur des résultats Google mais posent une question directe à une IA.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Est-ce que ça remplace vraiment le SEO Google ?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Non, ça le complète. Voxa fait les deux en parallèle : ton contenu est optimisé pour remonter sur Google ET pour être cité dans les réponses des LLMs. Les deux canaux amènent du trafic et des ventes — de plus en plus le deuxième.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Combien d'articles par mois ?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Selon le plan, de 30 articles/mois à illimité. Chaque article est optimisé SEO + GEO et publié automatiquement sur ton CMS.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Est-ce que ChatGPT va vraiment parler de ma marque ?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Si on optimise bien le contenu, oui. Les LLMs sont entraînés et interrogés en temps réel via des outils comme SearchGPT, Perplexity ou Copilot — ils citent les contenus bien structurés, factuels, et qui répondent à la question posée. Voxa construit exactement ce type de contenu.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Je suis sur Shopify / WordPress, ça marche ?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Oui, Voxa s'intègre nativement à WordPress, Shopify, Webflow, Wix, Notion, HubSpot, Ghost, Next.js et plus via webhook. Installation en 2 clics.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Quelle garantie si ça ne marche pas ?<span class="faq-toggle">+</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Garantie satisfait ou remboursé 30 jours. Sans justification. On te rembourse, point.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ CTA FINAL ============================================ -->
+<section class="cta-final reveal">
+  <h2>Tes concurrents sont déjà dans ChatGPT.</h2>
+  <p class="sub">Pas toi. Enfin, pas encore. Voxa installe en 3 minutes et ça change demain.</p>
+  <a href="#" class="btn btn-dark">Commencer gratuitement →</a>
+</section>
+
+<!-- ============================================ FOOTER ============================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-line">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="20" r="10" fill="none" stroke="#2563EB" stroke-width="7"/>
+            <path d="M 96 30 L 104 30 L 112 55 L 88 55 Z" fill="#2563EB"/>
+            <circle cx="100" cy="140" r="85" fill="none" stroke="#2563EB" stroke-width="13"/>
+            <circle cx="73" cy="135" r="11" fill="#2563EB"/>
+            <circle cx="127" cy="135" r="11" fill="#2563EB"/>
+            <ellipse cx="100" cy="177" rx="19" ry="7" fill="#2563EB"/>
+          </svg>
+          Voxa
+        </div>
+        <div class="tagline">Sois la marque que l'IA recommande.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Produit</h4>
+        <ul>
+          <li><a href="#">Tarifs</a></li>
+          <li><a href="#">LLM GEO</a></li>
+          <li><a href="#">Plugin WordPress</a></li>
+          <li><a href="#">Plugin Shopify</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Ressources</h4>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Guide GEO</a></li>
+          <li><a href="#">Études de cas</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Légal</h4>
+        <ul>
+          <li><a href="#">Conditions</a></li>
+          <li><a href="#">Vie privée</a></li>
+          <li><a href="#">Remboursement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Voxa. Tous droits réservés.</div>
+      <div>Fait avec ♥ à Paris</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================
+// FAQ TOGGLE
+// ============================================
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.addEventListener('click', () => {
+    item.classList.toggle('open');
+  });
+});
+
+// ============================================
+// REVEAL ON SCROLL
+// ============================================
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
