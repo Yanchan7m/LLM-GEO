@@ -536,6 +536,120 @@ section {
 }
 .feature-card:hover { box-shadow: var(--shadow-sm); }
 
+/* ===== ECOSYSTEM ===== */
+.ecosystem-section {
+  padding: 88px 0;
+  background: var(--off-white);
+  border-top: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+}
+.ecosystem-section .section-sub {
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 640px;
+  margin: 16px auto 0;
+  line-height: 1.55;
+  text-align: center;
+}
+.eco-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.eco-card {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px 24px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.eco-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--blue-tint);
+}
+.eco-card-featured {
+  border-color: var(--blue);
+  background: linear-gradient(180deg, var(--blue-soft) 0%, var(--white) 60%);
+}
+.eco-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.eco-emoji {
+  font-size: 22px;
+  line-height: 1;
+}
+.eco-card h3 {
+  font-size: 19px;
+  letter-spacing: -0.02em;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+}
+.eco-badge {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.eco-badge.live {
+  background: #DCFCE7;
+  color: #166534;
+}
+.eco-badge.soon {
+  background: #FEF3C7;
+  color: #92400E;
+}
+.eco-badge.roadmap {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+.eco-card p {
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 6px 0 18px;
+}
+.eco-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+}
+.eco-chip {
+  font-family: 'Geist', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--off-white);
+  border: 1px solid var(--stroke);
+  color: var(--ink);
+}
+.eco-card-featured .eco-chip {
+  background: var(--white);
+  border-color: var(--blue-tint);
+}
+@media (max-width: 980px) {
+  .eco-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .ecosystem-section { padding: 56px 0; }
+  .eco-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 36px; }
+  .eco-card { padding: 22px 20px 20px; }
+}
+
 .feature-card h3 {
   font-size: 22px;
   margin-bottom: 12px;
@@ -1715,6 +1829,124 @@ section {
 </section>
 
 <!-- ============================================================
+     ECOSYSTEM — channels Voxa publishes on
+     ============================================================ -->
+<section id="ecosystem" class="ecosystem-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label" data-i18n="eco.label">Écosystème</span>
+      <h2 data-i18n="eco.h2">Voxa publie partout. Vraiment partout.</h2>
+      <p class="section-sub" data-i18n="eco.sub">Un seul outil pour votre site, les blogs ouverts, les réseaux sociaux, les annonces et la prospection. Une vision marketing complète, pas un énième plugin SEO.</p>
+    </div>
+
+    <div class="eco-grid reveal">
+
+      <div class="eco-card">
+        <div class="eco-head">
+          <span class="eco-emoji">📝</span>
+          <h3 data-i18n="eco.m1.h3">Blogs &amp; forums</h3>
+          <span class="eco-badge live" data-i18n="eco.badge.partial">Auto + semi-auto</span>
+        </div>
+        <p data-i18n="eco.m1.p">Vos articles publiés sur les plateformes que les LLMs citent le plus.</p>
+        <div class="eco-chips">
+          <span class="eco-chip">Medium</span>
+          <span class="eco-chip">Pinterest</span>
+          <span class="eco-chip">Dev.to</span>
+          <span class="eco-chip">Hashnode</span>
+          <span class="eco-chip">Reddit</span>
+          <span class="eco-chip">Quora</span>
+          <span class="eco-chip">Substack</span>
+        </div>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-head">
+          <span class="eco-emoji">📱</span>
+          <h3 data-i18n="eco.m2.h3">Réseaux sociaux</h3>
+          <span class="eco-badge soon" data-i18n="eco.badge.soon">Bientôt</span>
+        </div>
+        <p data-i18n="eco.m2.p">Chaque article devient automatiquement post LinkedIn, thread X, carrousel Insta.</p>
+        <div class="eco-chips">
+          <span class="eco-chip">LinkedIn</span>
+          <span class="eco-chip">X</span>
+          <span class="eco-chip">Facebook</span>
+          <span class="eco-chip">Instagram</span>
+          <span class="eco-chip">YouTube</span>
+          <span class="eco-chip">TikTok</span>
+        </div>
+      </div>
+
+      <div class="eco-card eco-card-featured">
+        <div class="eco-head">
+          <span class="eco-emoji">🌐</span>
+          <h3 data-i18n="eco.m3.h3">Votre site</h3>
+          <span class="eco-badge live" data-i18n="eco.badge.live">Live</span>
+        </div>
+        <p data-i18n="eco.m3.p">Pages SEO + GEO publiées en automatique sur votre CMS.</p>
+        <div class="eco-chips">
+          <span class="eco-chip">WordPress</span>
+          <span class="eco-chip">Shopify</span>
+          <span class="eco-chip">Webflow</span>
+          <span class="eco-chip">Wix</span>
+          <span class="eco-chip">Notion</span>
+          <span class="eco-chip">Ghost</span>
+          <span class="eco-chip">HubSpot</span>
+          <span class="eco-chip">Next.js</span>
+        </div>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-head">
+          <span class="eco-emoji">🔎</span>
+          <h3 data-i18n="eco.m4.h3">Indexation Search</h3>
+          <span class="eco-badge live" data-i18n="eco.badge.live">Live</span>
+        </div>
+        <p data-i18n="eco.m4.p">Sitemap, IndexNow, Indexing API. Voxa pousse tout aux moteurs.</p>
+        <div class="eco-chips">
+          <span class="eco-chip">Google Search</span>
+          <span class="eco-chip">Bing</span>
+          <span class="eco-chip">IndexNow</span>
+          <span class="eco-chip">GPTBot</span>
+          <span class="eco-chip">ClaudeBot</span>
+          <span class="eco-chip">PerplexityBot</span>
+        </div>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-head">
+          <span class="eco-emoji">🎯</span>
+          <h3 data-i18n="eco.m5.h3">Ads</h3>
+          <span class="eco-badge roadmap" data-i18n="eco.badge.roadmap">Roadmap</span>
+        </div>
+        <p data-i18n="eco.m5.p">Génération créa, ciblage et budget pilotés depuis le même dashboard.</p>
+        <div class="eco-chips">
+          <span class="eco-chip">Google Ads</span>
+          <span class="eco-chip">Meta Ads</span>
+          <span class="eco-chip">LinkedIn Ads</span>
+          <span class="eco-chip">TikTok Ads</span>
+        </div>
+      </div>
+
+      <div class="eco-card">
+        <div class="eco-head">
+          <span class="eco-emoji">📨</span>
+          <h3 data-i18n="eco.m6.h3">Prospection</h3>
+          <span class="eco-badge roadmap" data-i18n="eco.badge.roadmap">Roadmap</span>
+        </div>
+        <p data-i18n="eco.m6.p">Cold email, LinkedIn DMs, relances automatiques avec suivi.</p>
+        <div class="eco-chips">
+          <span class="eco-chip">Email outbound</span>
+          <span class="eco-chip">LinkedIn DM</span>
+          <span class="eco-chip">Suivi multicanal</span>
+          <span class="eco-chip">Relances auto</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      FEATURES
      ============================================================ -->
 <section id="features">
@@ -2432,12 +2664,32 @@ section {
 
     'steps.label': 'Get started',
     'steps.h2': '3 steps. Voxa does the rest.',
-    'step1.h3': 'Paste your URL',
-    'step1.p': 'Voxa learns your site, your voice, your market and your competitors in 90 seconds.',
-    'step2.h3': 'Get articles',
-    'step2.p': 'We deliver a piece of content every day optimized for Google AND LLMs. You approve with one click.',
-    'step3.h3': 'Rank everywhere',
-    'step3.p': 'On Google, in ChatGPT answers, in Perplexity summaries. Traffic & sales climbing.',
+    'step1.h3': 'Connect your site',
+    'step1.p': 'One URL, one click. Voxa hooks into your site (WordPress, Shopify, Webflow…) and learns your voice, your market and your competitors in 90 seconds.',
+    'step2.h3': 'Voxa publishes on its own',
+    'step2.p': 'Every day, an article optimized for Google + LLMs is written and published automatically on your site via API. You don\'t lift a finger.',
+    'step3.h3': 'You rank everywhere',
+    'step3.p': 'On Google, in ChatGPT answers, in Perplexity summaries. Traffic and sales climbing — without you lifting a finger.',
+
+    'eco.label': 'Ecosystem',
+    'eco.h2': 'Voxa publishes everywhere. Truly everywhere.',
+    'eco.sub': 'A single tool for your site, open blogs, social networks, ads and outbound. A complete marketing stack, not yet another SEO plugin.',
+    'eco.badge.live': 'Live',
+    'eco.badge.soon': 'Soon',
+    'eco.badge.roadmap': 'Roadmap',
+    'eco.badge.partial': 'Auto + semi-auto',
+    'eco.m1.h3': 'Blogs &amp; forums',
+    'eco.m1.p': 'Your articles posted on the platforms LLMs cite the most.',
+    'eco.m2.h3': 'Social networks',
+    'eco.m2.p': 'Each article becomes a LinkedIn post, X thread, or Insta carousel automatically.',
+    'eco.m3.h3': 'Your site',
+    'eco.m3.p': 'SEO + GEO pages published automatically on your CMS.',
+    'eco.m4.h3': 'Search indexing',
+    'eco.m4.p': 'Sitemap, IndexNow, Indexing API. Voxa pushes everything to engines.',
+    'eco.m5.h3': 'Ads',
+    'eco.m5.p': 'Creative generation, targeting and budget — all from the same dashboard.',
+    'eco.m6.h3': 'Outbound',
+    'eco.m6.p': 'Cold email, LinkedIn DMs, automated follow-ups with full tracking.',
 
     'feat.label': '100% autopilot',
     'feat.h2': 'SEO + GEO. The winning combo.',
