@@ -536,6 +536,150 @@ section {
 }
 .feature-card:hover { box-shadow: var(--shadow-sm); }
 
+/* ===== PRICING ===== */
+.pricing-section {
+  padding: 96px 0 88px;
+}
+.pricing-section .section-sub {
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 640px;
+  margin: 16px auto 0;
+  line-height: 1.55;
+  text-align: center;
+}
+.pricing-grid {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.pricing-card {
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.pricing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--blue-tint);
+}
+.pricing-card-featured {
+  border-color: var(--blue);
+  background: linear-gradient(180deg, var(--blue-soft) 0%, var(--white) 70%);
+  box-shadow: 0 20px 60px -30px rgba(37, 99, 235, 0.45);
+}
+.pricing-card-featured:hover {
+  border-color: var(--blue);
+  box-shadow: 0 28px 80px -28px rgba(37, 99, 235, 0.55);
+}
+.pricing-flag {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--blue);
+  color: var(--white);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.pricing-tier {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.pricing-card-featured .pricing-tier {
+  color: var(--blue);
+}
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.price-amount {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
+}
+.price-period {
+  font-size: 15px;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+.pricing-tagline {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin-bottom: 24px;
+  min-height: 44px;
+}
+.pricing-cta {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 28px;
+}
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--stroke);
+  padding-top: 24px;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.pricing-card-featured .pricing-features {
+  border-top-color: var(--blue-tint);
+}
+.pricing-features li {
+  position: relative;
+  padding: 8px 0 8px 28px;
+  color: var(--ink);
+}
+.pricing-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue-soft);
+  color: var(--blue);
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+}
+@media (max-width: 980px) {
+  .pricing-grid { grid-template-columns: 1fr; gap: 28px; }
+  .pricing-card-featured { transform: none; }
+}
+@media (max-width: 640px) {
+  .pricing-section { padding: 64px 0 56px; }
+  .pricing-card { padding: 28px 24px; }
+  .price-amount { font-size: 42px; }
+}
+
 /* ===== ECOSYSTEM ===== */
 .ecosystem-section {
   padding: 88px 0;
@@ -2275,9 +2419,80 @@ section {
 </section>
 
 <!-- ============================================================
+     PRICING TIERS
+     ============================================================ -->
+<section id="tarifs" class="pricing-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="label" data-i18n="pricing.label">Tarifs</span>
+      <h2 data-i18n="pricing.h2">Trois plans. Zéro surprise.</h2>
+      <p class="section-sub" data-i18n="pricing.sub">Démarrez à 49 €. Évoluez quand vous êtes prêt. Annulable à tout moment.</p>
+    </div>
+
+    <div class="pricing-grid reveal">
+
+      <div class="pricing-card">
+        <div class="pricing-tier" data-i18n="pricing.t1.tier">Basique</div>
+        <div class="pricing-price">
+          <span class="price-amount">49 €</span>
+          <span class="price-period" data-i18n="pricing.t1.period">/ mois</span>
+        </div>
+        <p class="pricing-tagline" data-i18n="pricing.t1.tagline">Pour démarrer le GEO sans friction.</p>
+        <a href="#cta" class="btn btn-secondary pricing-cta" data-i18n="pricing.t1.cta">Commencer</a>
+        <ul class="pricing-features">
+          <li data-i18n="pricing.t1.f1">1 article par jour publié sur votre site</li>
+          <li data-i18n="pricing.t1.f2">1 CMS connecté (WordPress, Shopify, Webflow…)</li>
+          <li data-i18n="pricing.t1.f3">Tracker de citations IA (4 moteurs)</li>
+          <li data-i18n="pricing.t1.f4">Indexation Google auto + IndexNow</li>
+          <li data-i18n="pricing.t1.f5">Email digest hebdomadaire</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card pricing-card-featured">
+        <div class="pricing-flag" data-i18n="pricing.t2.flag">Le plus choisi</div>
+        <div class="pricing-tier" data-i18n="pricing.t2.tier">Pro</div>
+        <div class="pricing-price">
+          <span class="price-amount">99 €</span>
+          <span class="price-period" data-i18n="pricing.t2.period">/ mois</span>
+        </div>
+        <p class="pricing-tagline" data-i18n="pricing.t2.tagline">Pour multiplier les vecteurs de visibilité.</p>
+        <a href="#cta" class="btn btn-primary pricing-cta" data-i18n="pricing.t2.cta">Commencer</a>
+        <ul class="pricing-features">
+          <li data-i18n="pricing.t2.f1"><strong>Tout du Basique</strong>, plus :</li>
+          <li data-i18n="pricing.t2.f2">3 articles par jour, jusqu'à 3 sites connectés</li>
+          <li data-i18n="pricing.t2.f3">Distribution auto : Medium, Pinterest, Dev.to</li>
+          <li data-i18n="pricing.t2.f4">Drafts Reddit + Quora prêts en 1 clic</li>
+          <li data-i18n="pricing.t2.f5">Dashboard avancé (compétiteurs, alertes temps réel)</li>
+          <li data-i18n="pricing.t2.f6">Support prioritaire</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-tier" data-i18n="pricing.t3.tier">Enterprise</div>
+        <div class="pricing-price">
+          <span class="price-amount" data-i18n="pricing.t3.amount">Sur demande</span>
+        </div>
+        <p class="pricing-tagline" data-i18n="pricing.t3.tagline">Pour les marques qui veulent tout, partout.</p>
+        <a href="mailto:hello@voxa.io" class="btn btn-secondary pricing-cta" data-i18n="pricing.t3.cta">Nous contacter</a>
+        <ul class="pricing-features">
+          <li data-i18n="pricing.t3.f1"><strong>Tout du Pro</strong>, plus :</li>
+          <li data-i18n="pricing.t3.f2">Volume illimité, sites illimités</li>
+          <li data-i18n="pricing.t3.f3">Réseaux sociaux auto (LinkedIn, X, Instagram)</li>
+          <li data-i18n="pricing.t3.f4">Module Ads (Google Ads + Meta Ads)</li>
+          <li data-i18n="pricing.t3.f5">Module Prospection (cold email, LinkedIn DMs)</li>
+          <li data-i18n="pricing.t3.f6">Onboarding white-glove + account manager</li>
+          <li data-i18n="pricing.t3.f7">SLA & sécurité dédiés</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      COMPARISON
      ============================================================ -->
-<section id="tarifs">
+<section class="compare-block">
   <div class="container">
     <div class="section-head reveal">
       <span class="label" data-i18n="comp.label">Comparer</span>
@@ -2716,6 +2931,41 @@ section {
 
     'geo.label': 'What\'s GEO?',
     'geo.h2': 'SEO, but for generative AI — and beyond.',
+
+    'pricing.label': 'Pricing',
+    'pricing.h2': 'Three plans. Zero surprises.',
+    'pricing.sub': 'Start at €49. Scale when you\'re ready. Cancel anytime.',
+    'pricing.t1.tier': 'Basic',
+    'pricing.t1.period': '/ month',
+    'pricing.t1.tagline': 'To get started with GEO frictionless.',
+    'pricing.t1.cta': 'Start',
+    'pricing.t1.f1': '1 article a day published on your site',
+    'pricing.t1.f2': '1 connected CMS (WordPress, Shopify, Webflow…)',
+    'pricing.t1.f3': 'AI citation tracker (4 engines)',
+    'pricing.t1.f4': 'Auto Google indexing + IndexNow',
+    'pricing.t1.f5': 'Weekly email digest',
+    'pricing.t2.flag': 'Most popular',
+    'pricing.t2.tier': 'Pro',
+    'pricing.t2.period': '/ month',
+    'pricing.t2.tagline': 'To multiply your visibility channels.',
+    'pricing.t2.cta': 'Start',
+    'pricing.t2.f1': '<strong>Everything in Basic</strong>, plus:',
+    'pricing.t2.f2': '3 articles a day, up to 3 sites connected',
+    'pricing.t2.f3': 'Auto distribution: Medium, Pinterest, Dev.to',
+    'pricing.t2.f4': 'Reddit + Quora drafts ready in one click',
+    'pricing.t2.f5': 'Advanced dashboard (competitors, real-time alerts)',
+    'pricing.t2.f6': 'Priority support',
+    'pricing.t3.tier': 'Enterprise',
+    'pricing.t3.amount': 'On request',
+    'pricing.t3.tagline': 'For brands that want it all, everywhere.',
+    'pricing.t3.cta': 'Contact us',
+    'pricing.t3.f1': '<strong>Everything in Pro</strong>, plus:',
+    'pricing.t3.f2': 'Unlimited volume, unlimited sites',
+    'pricing.t3.f3': 'Auto social (LinkedIn, X, Instagram)',
+    'pricing.t3.f4': 'Ads module (Google Ads + Meta Ads)',
+    'pricing.t3.f5': 'Outbound module (cold email, LinkedIn DMs)',
+    'pricing.t3.f6': 'White-glove onboarding + account manager',
+    'pricing.t3.f7': 'Dedicated SLA &amp; security',
     'geo.deftag': 'GEO · def.',
     'geo.defp': '<strong>Generative Engine Optimization</strong>: optimizing content so it\'s cited, summarized and recommended by AI answer engines (ChatGPT, Perplexity, Claude, Gemini…) rather than simply listed on a Google SERP.',
     'geo.body': 'Classic SEO optimizes to be clicked. GEO optimizes to be cited. Concretely, Voxa structures your content into dense paragraphs, adds semantic FAQs, inserts the trust signals LLMs love (numbers, citations, sources), and makes sure your site is crawlable by GPTBot, ClaudeBot, PerplexityBot and the rest.',
