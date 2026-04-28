@@ -1138,6 +1138,25 @@ section {
 }
 
 /* ===== COMPARISON TABLE ===== */
+/* Force single-line headline on the comparison block (desktop) */
+.compare-block .section-head {
+  max-width: none;
+}
+.compare-block .section-head h2 {
+  white-space: nowrap;
+  font-size: clamp(28px, 3.6vw, 50px);
+}
+.compare-block .section-head p {
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 720px) {
+  .compare-block .section-head h2 {
+    white-space: normal;
+    font-size: clamp(28px, 7vw, 38px);
+  }
+}
+
 .compare-card {
   background: var(--white);
   border: 1px solid var(--stroke);
